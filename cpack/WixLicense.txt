@@ -1,0 +1,2 @@
+Chikara is licensed under the terms of the GNU General Public license,
+version 3, or later. See the file License.txt for details.
