@@ -165,9 +165,9 @@ endif()
 # Installation #
 ################
 
-#install(
-#	FILES Readme.md Authors.txt GPL-3.0.txt LGPL-3.0.txt
-#	DESTINATION ${DOC_INSTALL_PATH})
+install(
+	FILES Readme.md License.txt
+	DESTINATION ${DOC_INSTALL_PATH})
 
 install(TARGETS ${EXECUTABLE}
 	RUNTIME DESTINATION ${RUNTIME_INSTALL_PATH}
