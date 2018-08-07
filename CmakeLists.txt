@@ -28,7 +28,7 @@ project(Chikara
 
 set(VENDOR       "Vincent Damewood")
 set(COPYRIGHT    "Copyrghit 2018 Vincent Damewood")
-set(UPGRADE_GUID "")
+set(UPGRADE_GUID "76D08E10-64EF-44C9-B3C0-52C879D1B18A")
 
 set(EXECUTABLE ${CMAKE_PROJECT_NAME})
 set(HEADERS )
