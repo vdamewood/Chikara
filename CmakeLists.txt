@@ -184,7 +184,7 @@ if(PREPARE_BUNDLE)
 	# project details section.
 	if (WIN32)
 		install(CODE "FILE(INSTALL ${QTDIR}/plugins/platforms/qwindows.dll   DESTINATION \"${BUNDLE_PLUGIN_DIR}/platforms\")")
-		install(CODE "FILE(INSTALL ${QTDIR}/qml/QtQuick.2/qtquick2plugin.dll DESTINATION \"${BUNDLE_QML_DIR}/QtQuick.2\"s)")
+		install(CODE "FILE(INSTALL ${QTDIR}/qml/QtQuick.2/qtquick2plugin.dll DESTINATION \"${BUNDLE_QML_DIR}/QtQuick.2\")")
 		install(CODE "FILE(INSTALL ${QTDIR}/qml/QtQuick.2/qmldir             DESTINATION \"${BUNDLE_QML_DIR}/QtQuick.2\")")
 
 		set(PLUGINS platforms/qwindows.dll)
