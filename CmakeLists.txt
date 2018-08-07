@@ -206,6 +206,7 @@ if(PREPARE_BUNDLE)
 
 	install(CODE "include(BundleUtilities)")
 	install(CODE "fixup_bundle(\"${BUNDLE_EXECUTABLE}\" \"${PLUGINS}\" \"\")")
+	install(CODE "file(REMOVE \"\${CMAKE_INSTALL_PREFIX}/VCRUNTIME140.dll\")")
 endif()
 
 ####################
