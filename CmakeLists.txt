@@ -82,6 +82,7 @@ if(APPLE)
 	set(PREPARE_BUNDLE ON)
 	set(BUNDLE_EXECUTABLE "\${CMAKE_INSTALL_PREFIX}/${EXECUTABLE}.app")
 	set(BUNDLE_PLUGIN_DIR "${BUNDLE_EXECUTABLE}/Contents/PlugIns/")
+	set(BUNDLE_QML_DIR "\${CMAKE_INSTALL_PREFIX}/${EXECUTABLE}.app/Contents/Resources/qml")
 
 	get_target_property(QT_RPATH Qt5::Quick LOCATION)
 	get_filename_component(QT_RPATH ${QT_RPATH} PATH)
@@ -113,8 +114,13 @@ elseif(WIN32)
 	set(SHARE_INSTALL_PATH      .)
 	set(DOC_INSTALL_PATH        .)
 
+	get_target_property(QT_RPATH Qt5::Quick LOCATION)
+	get_filename_component(QT_RPATH ${QT_RPATH} PATH)
+	get_filename_component(QTDIR "${QT_RPATH}/.." ABSOLUTE)
+
 	set(PREPARE_BUNDLE ON)
 	set(BUNDLE_EXECUTABLE "\${CMAKE_INSTALL_PREFIX}/${EXECUTABLE}.exe")
+	set(BUNDLE_QML_DIR    "\${CMAKE_INSTALL_PREFIX}")
 	set(BUNDLE_PLUGIN_DIR "\${CMAKE_INSTALL_PREFIX}")
 
 	# FIXME: Do Windows Bundle Prep
@@ -174,6 +180,18 @@ install(TARGETS ${EXECUTABLE}
 	BUNDLE	DESTINATION ${BUNDLE_INSTALL_PATH}
 )
 if(PREPARE_BUNDLE)
+	# FIXME: This should be done based on input specified in the
+	# project details section.
+	if (WIN32)
+		install(CODE "FILE(INSTALL ${QTDIR}/plugins/platforms/qwindows.dll   DESTINATION \"${BUNDLE_PLUGIN_DIR}/platforms\")")
+		install(CODE "FILE(INSTALL ${QTDIR}/qml/QtQuick.2/qtquick2plugin.dll DESTINATION \"${BUNDLE_PLUGIN_DIR}/quick\")")
+		install(CODE "FILE(INSTALL ${QTDIR}/qml/QtQuick.2/qmldir             DESTINATION \"${BUNDLE_QML_DIR}/QtQuick.2\")")
+
+		set(PLUGINS platforms/qwindows.dll)
+
+		list(TRANSFORM PLUGINS PREPEND "${BUNDLE_PLUGIN_DIR}/")
+	endif()
+
 	#foreach(PLUGIN_TARGET ${Qt5Gui_PLUGINS})
 	#	get_target_property(PLUGIN_ABSOLUTE_PATH ${PLUGIN_TARGET} LOCATION)
 	#	string(FIND "${PLUGIN_ABSOLUTE_PATH}" "plugins/" INDEX REVERSE)
