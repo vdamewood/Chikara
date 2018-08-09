@@ -16,6 +16,8 @@
 
 cmake_minimum_required(VERSION 3.12.0)
 
+include("cmake/plugintools.cmake")
+
 ###################
 # Project Details #
 ###################
@@ -37,11 +39,14 @@ set(SOURCES main.cc)
 set(MOC_HEADERS )
 set(QRCS main.qrc)
 
-# FIXME: Specify needed plugins and QML modules in
-# platform-independent way.
-# set(QT_PLUGINS )
-# set(QML_FILES /qml/QtQuick.2/qmldir)
-# set(QML_PLUGINS /qml/QtQuick.2/qtquick2plugin)
+set(QT_PLUGINS
+)
+set(QML_PLUGINS
+	QtQuick.2/qtquick2plugin
+)
+set(QML_FILES
+	QtQuick.2/qmldir
+)
 
 
 #######################
@@ -95,19 +100,36 @@ if(APPLE)
 
 	# FIXME: This and the POST_BUILD symlink below should be done from a
 	# list of plugins above in the project details section.
-	list(APPEND SOURCES
-		${QTDIR}/plugins/platforms/libqcocoa.dylib
-		${QTDIR}/qml/QtQuick.2/libqtquick2plugin.dylib
-		${QTDIR}/qml/QtQuick.2/qmldir)
-	set_source_files_properties(${QTDIR}/plugins/platforms/libqcocoa.dylib
-		PROPERTIES MACOSX_PACKAGE_LOCATION PlugIns/platforms)
-	set_source_files_properties(${QTDIR}/qml/QtQuick.2/libqtquick2plugin.dylib
-		PROPERTIES MACOSX_PACKAGE_LOCATION PlugIns/quick)
-	set_source_files_properties(${QTDIR}/qml/QtQuick.2/qmldir
-		PROPERTIES MACOSX_PACKAGE_LOCATION Resources/qml/QtQuick.2)
+	list(APPEND QT_PLUGINS "platforms/qcocoa")
 
-	set(PLUGINS platforms/libqcocoa.dylib quick/libqtquick2plugin.dylib)
+	make_plugin_list(PLUGIN_LIBS ${QT_PLUGINS})
+	set(PLUGINS ${PLUGIN_LIBS})
+	foreach(P ${PLUGIN_LIBS})
+		list(APPEND SOURCES "${QTDIR}/plugins/${P}")
+		get_filename_component(D ${P} DIRECTORY)
+		set_source_files_properties("${QTDIR}/plugins/${P}"
+			PROPERTIES MACOSX_PACKAGE_LOCATION "PlugIns/${D}")
+	endforeach()
+
+	# FIXME: Need to symlink Resources/qml/P --> PlugIns/Quick
+	make_plugin_list(QMLPLUGIN_LIBS ${QML_PLUGINS})
+	foreach(P ${QMLPLUGIN_LIBS})
+		list(APPEND SOURCES "${QTDIR}/qml/${P}")
+		get_filename_component(N ${P} NAME)
+		list(APPEND PLUGINS "quick/${N}")
+		set_source_files_properties("${QTDIR}/qml/${P}"
+			PROPERTIES MACOSX_PACKAGE_LOCATION "PlugIns/quick")
+	endforeach()
+
+	foreach(P ${QML_FILES})
+		list(APPEND SOURCES "${QTDIR}/qml/${P}")
+		get_filename_component(D ${P} DIRECTORY)
+		set_source_files_properties("${QTDIR}/qml/${P}"
+			PROPERTIES MACOSX_PACKAGE_LOCATION "Resources/qml/${D}")
+	endforeach()
+
 	list(TRANSFORM PLUGINS PREPEND "${BUNDLE_PLUGIN_DIR}")
+	message("${PLUGINS}")
 elseif(WIN32)
 	set(RUNTIME_INSTALL_PATH    .)
 	set(BUNDLE_INSTALL_PATH		Error)
