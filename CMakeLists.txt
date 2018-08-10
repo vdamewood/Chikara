@@ -48,16 +48,15 @@ set(QML_FILES
 	QtQuick.2/qmldir
 )
 
-
 #######################
 # Dependency Searches #
 #######################
 
 find_package(Qt5Quick REQUIRED)
 
-######################
-# Derrivative Values #
-######################
+###############
+# Build Setup #
+###############
 
 include_directories(${Qt5Quick_INCLUDE_DIRS})
 
@@ -78,82 +77,77 @@ if(QRCS)
 	set(TMP)
 endif()
 
+if (APPLE)
+	list(APPEND QT_PLUGINS "platforms/qcocoa")
+elseif(WIN32)
+	list(APPEND QT_PLUGINS "platforms/qwindows")
+endif()
+
+if(APPLE OR WIN32)
+	set(PREPARE_BUNDLE ON)
+	make_plugin_list(QT_PLUGIN_LIBS ${QT_PLUGINS})
+	make_plugin_list(QML_PLUGIN_LIBS ${QML_PLUGINS})
+
+	set(FIXUP_PLUGINS ${QT_PLUGIN_LIBS})
+	foreach(P ${QML_PLUGIN_LIBS})
+		get_filename_component(F ${P} NAME)
+		list(APPEND FIXUP_PLUGINS "quick/${F}")
+	endforeach()
+else()
+	set(PREPARE_BUNDLE OFF)
+endif()
+
 if(APPLE)
 	set(RUNTIME_INSTALL_PATH    bin)
 	set(BUNDLE_INSTALL_PATH     .)
-	set(SHARE_INSTALL_PATH      Error)
 	set(DOC_INSTALL_PATH        .)
 
-	set(PREPARE_BUNDLE ON)
-	set(BUNDLE_EXECUTABLE "\${CMAKE_INSTALL_PREFIX}/${EXECUTABLE}.app")
-	set(BUNDLE_PLUGIN_DIR "${BUNDLE_EXECUTABLE}/Contents/PlugIns/")
-	set(BUNDLE_QML_DIR "\${CMAKE_INSTALL_PREFIX}/${EXECUTABLE}.app/Contents/Resources/qml")
+	set(FIXUP_APP "\${CMAKE_INSTALL_PREFIX}/${EXECUTABLE}.app")
+	list(TRANSFORM FIXUP_PLUGINS PREPEND "${FIXUP_APP}/Contents/PlugIns/")
 
-	get_target_property(QT_RPATH Qt5::Quick LOCATION)
-	get_filename_component(QT_RPATH ${QT_RPATH} PATH)
-	get_filename_component(QT_RPATH "${QT_RPATH}/.." ABSOLUTE)
-	get_filename_component(QTDIR "${QT_RPATH}/.." ABSOLUTE)
+	get_target_property(QT_LIB_DIR Qt5::Quick LOCATION)
+	get_filename_component(QT_LIB_DIR ${QT_LIB_DIR} PATH)
+	get_filename_component(QT_LIB_DIR "${QT_LIB_DIR}/.." ABSOLUTE)
+	get_filename_component(QT_DIR "${QT_LIB_DIR}/.." ABSOLUTE)
 
-	list(APPEND SOURCES src/qt.conf)
-	set_source_files_properties(src/qt.conf
-		PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
+	list(APPEND SOURCES "src/qt.conf")
+	set_source_files_properties("src/qt.conf"
+		PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
 
-	# FIXME: This and the POST_BUILD symlink below should be done from a
-	# list of plugins above in the project details section.
-	list(APPEND QT_PLUGINS "platforms/qcocoa")
-
-	make_plugin_list(PLUGIN_LIBS ${QT_PLUGINS})
-	set(PLUGINS ${PLUGIN_LIBS})
-	foreach(P ${PLUGIN_LIBS})
-		list(APPEND SOURCES "${QTDIR}/plugins/${P}")
+	foreach(P ${QT_PLUGIN_LIBS})
 		get_filename_component(D ${P} DIRECTORY)
-		set_source_files_properties("${QTDIR}/plugins/${P}"
+		list(APPEND SOURCES "${QT_DIR}/plugins/${P}")
+		set_source_files_properties("${QT_DIR}/plugins/${P}"
 			PROPERTIES MACOSX_PACKAGE_LOCATION "PlugIns/${D}")
 	endforeach()
 
-	make_plugin_list(QMLPLUGIN_LIBS ${QML_PLUGINS})
-	foreach(P ${QMLPLUGIN_LIBS})
-		list(APPEND SOURCES "${QTDIR}/qml/${P}")
-		get_filename_component(N ${P} NAME)
-		list(APPEND PLUGINS "quick/${N}")
-		set_source_files_properties("${QTDIR}/qml/${P}"
+	foreach(P ${QML_PLUGIN_LIBS})
+		list(APPEND SOURCES "${QT_DIR}/qml/${P}")
+		set_source_files_properties("${QT_DIR}/qml/${P}"
 			PROPERTIES MACOSX_PACKAGE_LOCATION "PlugIns/quick")
 	endforeach()
 
 	foreach(P ${QML_FILES})
-		list(APPEND SOURCES "${QTDIR}/qml/${P}")
 		get_filename_component(D ${P} DIRECTORY)
-		set_source_files_properties("${QTDIR}/qml/${P}"
+		list(APPEND SOURCES "${QT_DIR}/qml/${P}")
+		set_source_files_properties("${QT_DIR}/qml/${P}"
 			PROPERTIES MACOSX_PACKAGE_LOCATION "Resources/qml/${D}")
 	endforeach()
-
-	list(TRANSFORM PLUGINS PREPEND "${BUNDLE_PLUGIN_DIR}")
-	message("${PLUGINS}")
 elseif(WIN32)
 	set(RUNTIME_INSTALL_PATH    .)
 	set(BUNDLE_INSTALL_PATH		Error)
-	set(SHARE_INSTALL_PATH      .)
 	set(DOC_INSTALL_PATH        .)
 
-	get_target_property(QT_RPATH Qt5::Quick LOCATION)
-	get_filename_component(QT_RPATH ${QT_RPATH} PATH)
-	get_filename_component(QTDIR "${QT_RPATH}/.." ABSOLUTE)
+	set(FIXUP_APP "\${CMAKE_INSTALL_PREFIX}/${EXECUTABLE}.exe")
+	list(TRANSFORM FIXUP_PLUGINS PREPEND "\${CMAKE_INSTALL_PREFIX}/")
 
-	set(PREPARE_BUNDLE ON)
-	set(BUNDLE_EXECUTABLE "\${CMAKE_INSTALL_PREFIX}/${EXECUTABLE}.exe")
-	set(BUNDLE_QML_DIR    "\${CMAKE_INSTALL_PREFIX}")
-	set(BUNDLE_PLUGIN_DIR "\${CMAKE_INSTALL_PREFIX}")
-
-	list(APPEND QT_PLUGINS platforms/qwindows)
-	make_plugin_list(PLUGIN_LIBS ${QT_PLUGINS})
-	make_plugin_list(QMLPLUGIN_LIBS ${QML_PLUGINS})
+	get_target_property(QT_DIR Qt5::Quick LOCATION)
+	get_filename_component(QT_DIR ${QT_DIR} PATH)
+	get_filename_component(QT_DIR "${QT_DIR}/.." ABSOLUTE)
 else()
 	set(RUNTIME_INSTALL_PATH    bin)
 	set(BUNDLE_INSTALL_PATH     share/${CMAKE_PROJECT_NAME}/error)
-	set(SHARE_INSTALL_PATH      share/${CMAKE_PROJECT_NAME})
 	set(DOC_INSTALL_PATH        share/${CMAKE_PROJECT_NAME}/doc)
-
-	set(PREPARE_BUNDLE OFF)
 endif()
 
 ###########
@@ -167,28 +161,19 @@ if(APPLE)
 	set(PLUGIN_DIR ${CMAKE_BINARY_DIR}/${EXECUTABLE}.app/Contents/PlugIns)
 	set(RESOURCE_DIR ${CMAKE_BINARY_DIR}/${EXECUTABLE}.app/Contents/Resources)
 
-	foreach(P ${QMLPLUGIN_LIBS})
+	foreach(P ${QML_PLUGIN_LIBS})
 		get_filename_component(D ${P} DIRECTORY)
 		get_filename_component(F ${P} NAME)
-		file(RELATIVE_PATH QUICK_DIR "${RESOURCE_DIR}/qml/${D}" ${PLUGIN_DIR}/quick)
-		message("Symlinking: ${P}")
-		message("-- D: ${D}")
-		message("-- N: ${N}")
-		message("FROM: ${RESOURCE_DIR}/qml/${P}")
-		message("TO:   ${QUICK_DIR}/${F}")
+		file(RELATIVE_PATH QUICK_DIR "${RESOURCE_DIR}/qml/${D}" "${PLUGIN_DIR}/quick")
 		add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
 			COMMAND ${CMAKE_COMMAND} -E create_symlink
 				"${QUICK_DIR}/${F}"
 				"${RESOURCE_DIR}/qml/${P}"
 	)
 	endforeach()
-	add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
-		COMMAND ${CMAKE_COMMAND} -E create_symlink
-			"${QUICK_DIR}/libqtquick2plugin.dylib"
-			"${RESOURCE_DIR}/qml/QtQuick.2/libqtquick2plugin.dylib"
-	)
+
 	set_target_properties(${EXECUTABLE} PROPERTIES
-		INSTALL_RPATH ${QT_RPATH}
+		INSTALL_RPATH ${QT_LIB_DIR}
 		#MACOSX_BUNDLE_INFO_STRING
 		#MACOSX_BUNDLE_ICON_FILE
 		#MACOSX_BUNDLE_GUI_IDENTIFIER
@@ -214,25 +199,22 @@ install(TARGETS ${EXECUTABLE}
 )
 if(PREPARE_BUNDLE)
 	if (WIN32)
-		foreach(P ${PLUGIN_LIBS})
+		foreach(P ${QT_PLUGIN_LIBS})
 			get_filename_component(D ${P} DIRECTORY)
-			install(CODE "FILE(INSTALL ${QTDIR}/plugins/${P} DESTINATION \"${BUNDLE_PLUGIN_DIR}/${D}\")")
+			install(CODE "FILE(INSTALL ${QT_DIR}/plugins/${P} DESTINATION \"\${CMAKE_INSTALL_PREFIX}/${D}\")")
 		endforeach()
-		foreach(P ${QMLPLUGIN_LIBS})
+		foreach(P ${QML_PLUGIN_LIBS})
 			get_filename_component(D ${P} DIRECTORY)
-			install(CODE "FILE(INSTALL ${QTDIR}/qml/${P} DESTINATION \"${BUNDLE_QML_DIR}/${D}\")")
+			install(CODE "FILE(INSTALL ${QT_DIR}/qml/${P} DESTINATION \"\${CMAKE_INSTALL_PREFIX}/${D}\")")
 		endforeach()
 		foreach(F ${QML_FILES})
 			get_filename_component(D ${F} DIRECTORY)
-			install(CODE "FILE(INSTALL ${QTDIR}/qml/${F} DESTINATION \"${BUNDLE_QML_DIR}/${D}\")")
+			install(CODE "FILE(INSTALL ${QT_DIR}/qml/${F} DESTINATION \"\${CMAKE_INSTALL_PREFIX}/${D}\")")
 		endforeach()
-
-		set(PLUGINS ${PLUGIN_LIBS})
-		list(TRANSFORM PLUGINS PREPEND "${BUNDLE_PLUGIN_DIR}/")
 	endif()
 
 	install(CODE "include(BundleUtilities)")
-	install(CODE "fixup_bundle(\"${BUNDLE_EXECUTABLE}\" \"${PLUGINS}\" \"\")")
+	install(CODE "fixup_bundle(\"${FIXUP_APP}\" \"${FIXUP_PLUGINS}\" \"\")")
 	install(CODE "file(REMOVE \"\${CMAKE_INSTALL_PREFIX}/VCRUNTIME140.dll\")")
 endif()
 
