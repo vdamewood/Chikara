@@ -111,7 +111,6 @@ if(APPLE)
 			PROPERTIES MACOSX_PACKAGE_LOCATION "PlugIns/${D}")
 	endforeach()
 
-	# FIXME: Need to symlink Resources/qml/P --> PlugIns/Quick
 	make_plugin_list(QMLPLUGIN_LIBS ${QML_PLUGINS})
 	foreach(P ${QMLPLUGIN_LIBS})
 		list(APPEND SOURCES "${QTDIR}/qml/${P}")
@@ -163,8 +162,24 @@ add_executable(${EXECUTABLE} WIN32 MACOSX_BUNDLE ${SOURCES})
 target_link_libraries(${EXECUTABLE} ${Qt5Quick_LIBRARIES})
 
 if(APPLE)
+	set(PLUGIN_DIR ${CMAKE_BINARY_DIR}/${EXECUTABLE}.app/Contents/PlugIns)
 	set(RESOURCE_DIR ${CMAKE_BINARY_DIR}/${EXECUTABLE}.app/Contents/Resources)
-	set(QUICK_DIR "../../../PlugIns/quick")
+
+	foreach(P ${QMLPLUGIN_LIBS})
+		get_filename_component(D ${P} DIRECTORY)
+		get_filename_component(F ${P} NAME)
+		file(RELATIVE_PATH QUICK_DIR "${RESOURCE_DIR}/qml/${D}" ${PLUGIN_DIR}/quick)
+		message("Symlinking: ${P}")
+		message("-- D: ${D}")
+		message("-- N: ${N}")
+		message("FROM: ${RESOURCE_DIR}/qml/${P}")
+		message("TO:   ${QUICK_DIR}/${F}")
+		add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E create_symlink
+				"${QUICK_DIR}/${F}"
+				"${RESOURCE_DIR}/qml/${P}"
+	)
+	endforeach()
 	add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E create_symlink
 			"${QUICK_DIR}/libqtquick2plugin.dylib"
