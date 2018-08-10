@@ -144,7 +144,9 @@ elseif(WIN32)
 	set(BUNDLE_QML_DIR    "\${CMAKE_INSTALL_PREFIX}")
 	set(BUNDLE_PLUGIN_DIR "\${CMAKE_INSTALL_PREFIX}")
 
-	# FIXME: Do Windows Bundle Prep
+	list(APPEND QT_PLUGINS platforms/qwindows)
+	make_plugin_list(PLUGIN_LIBS ${QT_PLUGINS})
+	make_plugin_list(QMLPLUGIN_LIBS ${QML_PLUGINS})
 else()
 	set(RUNTIME_INSTALL_PATH    bin)
 	set(BUNDLE_INSTALL_PATH     share/${CMAKE_PROJECT_NAME}/error)
@@ -217,15 +219,21 @@ install(TARGETS ${EXECUTABLE}
 	BUNDLE	DESTINATION ${BUNDLE_INSTALL_PATH}
 )
 if(PREPARE_BUNDLE)
-	# FIXME: This should be done based on input specified in the
-	# project details section.
 	if (WIN32)
-		install(CODE "FILE(INSTALL ${QTDIR}/plugins/platforms/qwindows.dll   DESTINATION \"${BUNDLE_PLUGIN_DIR}/platforms\")")
-		install(CODE "FILE(INSTALL ${QTDIR}/qml/QtQuick.2/qtquick2plugin.dll DESTINATION \"${BUNDLE_QML_DIR}/QtQuick.2\")")
-		install(CODE "FILE(INSTALL ${QTDIR}/qml/QtQuick.2/qmldir             DESTINATION \"${BUNDLE_QML_DIR}/QtQuick.2\")")
+		foreach(P ${PLUGIN_LIBS})
+			get_filename_component(D ${P} DIRECTORY)
+			install(CODE "FILE(INSTALL ${QTDIR}/plugins/${P} DESTINATION \"${BUNDLE_PLUGIN_DIR}/${D}\")")
+		endforeach()
+		foreach(P ${QMLPLUGIN_LIBS})
+			get_filename_component(D ${P} DIRECTORY)
+			install(CODE "FILE(INSTALL ${QTDIR}/qml/${P} DESTINATION \"${BUNDLE_QML_DIR}/${D}\")")
+		endforeach()
+		foreach(F ${QML_FILES})
+			get_filename_component(D ${F} DIRECTORY)
+			install(CODE "FILE(INSTALL ${QTDIR}/qml/${F} DESTINATION \"${BUNDLE_QML_DIR}/${D}\")")
+		endforeach()
 
-		set(PLUGINS platforms/qwindows.dll)
-
+		set(PLUGINS ${PLUGIN_LIBS})
 		list(TRANSFORM PLUGINS PREPEND "${BUNDLE_PLUGIN_DIR}/")
 	endif()
 
