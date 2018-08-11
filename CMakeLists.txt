@@ -235,13 +235,15 @@ set(CPACK_SOURCE_PACKAGE_FILE_NAME "${PROJECT_NAME}-${PROJECT_VERSION}")
 set(CPACK_SOURCE_STRIP_FILES Off)
 set(CPACK_SOURCE_GENERATOR TXZ)
 set(CPACK_SOURCE_IGNORE_FILES
-	"/\\.git/"
-	"/\\.gitignore"
+	"/\\\\.git/"
+	"/\\\\.gitignore"
 	"/[Bb]uild.*/"
-	"\\.DS_Store"
-	".*\\.code-workspace"
-	"\\.vscode"
+	"\\\\.DS_Store"
+	".*\\\\.code-workspace"
+	"\\\\.vscode"
 )
+
+message("${CPACK_SOURCE_IGNORE_FILES}")
 set(CPACK_PACKAGE_EXECUTABLES ${EXECUTABLE} ${PROJECT_NAME})
 
 if(APPLE)
