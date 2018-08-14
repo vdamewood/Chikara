@@ -14,11 +14,41 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import QtQuick 2.0
+import QtQuick 2.3
+import QtQuick.Layouts 1.11
 
 Rectangle {
     id: page
-    width: 320; height: 170
+    width: 640
+    height: 600
     color: "white"
     visible: true
+
+    ColumnLayout {
+        spacing: 0
+        anchors.fill: parent
+
+        Rectangle {
+            id: honorPanel
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            color: "red"
+            visible: true
+        }
+
+        Rectangle {
+            id: fatePanel
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            color: "violet"
+            visible: true
+        }
+        Rectangle {
+            id: bidPanel
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            color: "black"
+            visible: true
+        }
+    }
 }

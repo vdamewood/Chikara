@@ -43,9 +43,11 @@ set(QT_PLUGINS
 )
 set(QML_PLUGINS
 	QtQuick.2/qtquick2plugin
+	QtQuick/Layouts/qquicklayoutsplugin
 )
 set(QML_FILES
 	QtQuick.2/qmldir
+	QtQuick/Layouts/qmldir
 )
 
 #######################
