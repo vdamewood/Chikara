@@ -43,11 +43,27 @@ set(QT_PLUGINS
 )
 set(QML_PLUGINS
 	QtQuick.2/qtquick2plugin
+	QtQuick/Controls/qtquickcontrolsplugin
 	QtQuick/Layouts/qquicklayoutsplugin
+	QtQuick/Window.2/windowplugin
 )
 set(QML_FILES
 	QtQuick.2/qmldir
+	QtQuick/Controls/qmldir
+	QtQuick/Controls/ApplicationWindow.qml
+	QtQuick/Controls/MenuBar.qml
+	QtQuick/Controls/Private/qmldir
+	QtQuick/Controls/Private/CalendarUtils.js
+	QtQuick/Controls/Private/ContentItem.qml
+	QtQuick/Controls/Private/StackView.js
+	QtQuick/Controls/Private/Style.qml
+	QtQuick/Controls/Private/style.js
+	QtQuick/Controls/Private/SystemPaletteSingleton.qml
+	QtQuick/Controls/Private/TextSingleton.qml
+	QtQuick/Controls/Styles/qmldir
+	QtQuick/Controls/Styles/Base/ApplicationWindowStyle.qml
 	QtQuick/Layouts/qmldir
+	QtQuick/Window.2/qmldir
 )
 
 #######################

@@ -15,23 +15,13 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include <QGuiApplication>
-#include <QQuickView>
-#include <QQmlFileSelector>
+#include <QQMLApplicationEngine>
 
 const char* QML_FILE = "qrc:///main.qml";
 
 int main(int argc, char *argv[])
 {
 	QGuiApplication app(argc, argv);
-	QQuickView view;
-	view.connect(view.engine(), &QQmlEngine::quit, &app, &QCoreApplication::quit);
-
-	auto throwaway = new QQmlFileSelector(view.engine(), &view);
-	view.setSource(QUrl(QML_FILE));
-	if (view.status() == QQuickView::Error)
-		return -1;
-	view.setResizeMode(QQuickView::SizeRootObjectToView);
-
-	view.show();
+	QQmlApplicationEngine engine(QML_FILE);
 	return app.exec();
 }
