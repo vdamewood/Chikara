@@ -17,7 +17,7 @@
 #include <QGuiApplication>
 #include <QQMLApplicationEngine>
 
-const char* QML_FILE = "qrc:///main.qml";
+const char* QML_FILE = "qrc:///MainWindow.qml";
 
 int main(int argc, char *argv[])
 {

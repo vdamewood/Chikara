@@ -1,4 +1,4 @@
-// main.qml: Primary user interface
+// MainWindow.qml: Primary user interface
 // Copyright 2018 Vincent Damewood
 //
 // This program is free software: you can redistribute it and/or modify

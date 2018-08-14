@@ -37,7 +37,7 @@ set(HEADERS )
 set(SOURCES main.cc)
 
 set(MOC_HEADERS )
-set(QRCS main.qrc)
+set(QRCS Chikara.qrc)
 
 set(QT_PLUGINS
 )
