@@ -2,7 +2,7 @@
 
 Chikara is a program for allowing players with motor-functioning
 difficulty to play a certain card game. This card game features many
-tasks which would require many fine hand movememnts, including moving
+tasks which would require many fine hand movements, including moving
 and counting many small tokens and the rotation of a dial consisting
 of two pieces of cardboard joined by a plastic pin through their
 centers.
