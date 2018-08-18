@@ -19,37 +19,37 @@ import QtQuick.Controls 1.5
 import QtQuick.Layouts 1.11
 
 ApplicationWindow {
-    id: mainWindow
-    width: 640
-    height: 600
-    color: "white"
-    visible: true
+	id: mainWindow
+	width: 640
+	height: 600
+	color: "white"
+	visible: true
 
-    ColumnLayout {
-        spacing: 0
-        anchors.fill: parent
+	ColumnLayout {
+		spacing: 0
+		anchors.fill: parent
 
-        Rectangle {
-            id: honorPanel
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            color: "red"
-            visible: true
-        }
+		Rectangle {
+			id: honorPanel
+			Layout.fillWidth: true
+			Layout.fillHeight: true
+			color: "red"
+			visible: true
+		}
 
-        Rectangle {
-            id: fatePanel
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            color: "violet"
-            visible: true
-        }
-        Rectangle {
-            id: bidPanel
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            color: "black"
-            visible: true
-        }
-    }
+		Rectangle {
+			id: fatePanel
+			Layout.fillWidth: true
+			Layout.fillHeight: true
+			color: "violet"
+			visible: true
+		}
+		Rectangle {
+			id: bidPanel
+			Layout.fillWidth: true
+			Layout.fillHeight: true
+			color: "black"
+			visible: true
+		}
+	}
 }
