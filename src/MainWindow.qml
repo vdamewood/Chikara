@@ -16,7 +16,6 @@
 
 import QtQuick 2.11
 import QtQuick.Controls 2.4
-import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.11
 
 ApplicationWindow
@@ -44,64 +43,26 @@ ApplicationWindow
 			{
 				spacing: 10
 				anchors.fill: parent;
-				Button
+
+				HonorInitButton
 				{
-					id: honorButton10
-					onClicked: this.background.color="#fff"
 					Layout.fillWidth: true
 					Layout.fillHeight: true
-
-					contentItem: Text
-					{
-						text: "10"
-						font.pixelSize: 55
-						color: "black"
-						horizontalAlignment: Text.AlignHCenter
-						verticalAlignment: Text.AlignVCenter
-					}
-					background: Rectangle
-					{
-						color: "#ccc"
-						radius: 20
-					}
+					value: 10
 				}
 
-				Button
+				HonorInitButton
 				{
 					Layout.fillWidth: true
 					Layout.fillHeight: true
-					contentItem: Text
-					{
-						text: "11"
-						font.pixelSize: 55
-						color: "black"
-						horizontalAlignment: Text.AlignHCenter
-						verticalAlignment: Text.AlignVCenter
-					}
-					background: Rectangle
-					{
-						color: "#ccc"
-						radius: 20
-					}
+					value: 11
 				}
 
-				Button
+				HonorInitButton
 				{
 					Layout.fillWidth: true
 					Layout.fillHeight: true
-					contentItem: Text
-					{
-						text: "12"
-						font.pixelSize: 55
-						color: "black"
-						horizontalAlignment: Text.AlignHCenter
-						verticalAlignment: Text.AlignVCenter
-					}
-					background: Rectangle
-					{
-						color: "#ccc"
-						radius: 20
-					}
+					value: 12
 				}
 			}
 		}

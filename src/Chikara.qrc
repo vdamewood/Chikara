@@ -19,6 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 <!DOCTYPE RCC>
 <RCC version="1.0">
 <qresource>
-<file>MainWindow.qml</file>
+	<file>MainWindow.qml</file>
+	<file>HonorInitButton.qml</file>
 </qresource>
 </RCC>
