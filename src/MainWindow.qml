@@ -14,41 +14,113 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import QtQuick 2.3
-import QtQuick.Controls 1.5
+import QtQuick 2.6
+import QtQuick.Controls 2.1
+import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.11
 
-ApplicationWindow {
+ApplicationWindow
+{
 	id: mainWindow
 	width: 640
 	height: 600
 	color: "white"
 	visible: true
 
-	ColumnLayout {
+	ColumnLayout
+	{
 		spacing: 0
 		anchors.fill: parent
 
-		Rectangle {
+		Rectangle
+		{
 			id: honorPanel
 			Layout.fillWidth: true
 			Layout.fillHeight: true
 			color: "red"
 			visible: true
+
+			RowLayout
+			{
+				spacing: 10
+				anchors.fill: parent;
+				Button
+				{
+					id: honorButton10
+					onClicked: this.background.color="#fff"
+					Layout.fillWidth: true
+					Layout.fillHeight: true
+
+					contentItem: Text
+					{
+						text: "10"
+						font.pixelSize: 55
+						color: "black"
+						horizontalAlignment: Text.AlignHCenter
+						verticalAlignment: Text.AlignVCenter
+					}
+					background: Rectangle
+					{
+						color: "#ccc"
+						radius: 20
+					}
+				}
+
+				Button
+				{
+					Layout.fillWidth: true
+					Layout.fillHeight: true
+					contentItem: Text
+					{
+						text: "11"
+						font.pixelSize: 55
+						color: "black"
+						horizontalAlignment: Text.AlignHCenter
+						verticalAlignment: Text.AlignVCenter
+					}
+					background: Rectangle
+					{
+						color: "#ccc"
+						radius: 20
+					}
+				}
+
+				Button
+				{
+					Layout.fillWidth: true
+					Layout.fillHeight: true
+					contentItem: Text
+					{
+						text: "12"
+						font.pixelSize: 55
+						color: "black"
+						horizontalAlignment: Text.AlignHCenter
+						verticalAlignment: Text.AlignVCenter
+					}
+					background: Rectangle
+					{
+						color: "#ccc"
+						radius: 20
+					}
+				}
+			}
 		}
 
-		Rectangle {
-			id: fatePanel
-			Layout.fillWidth: true
-			Layout.fillHeight: true
-			color: "violet"
-			visible: true
-		}
-		Rectangle {
+		Rectangle
+		{
 			id: bidPanel
 			Layout.fillWidth: true
 			Layout.fillHeight: true
 			color: "black"
+			visible: true
+		}
+
+		Rectangle
+		{
+			id: fatePanel
+			Layout.fillWidth: true
+			Layout.fillHeight: true
+			color: "violet"
 			visible: true
 		}
 	}
