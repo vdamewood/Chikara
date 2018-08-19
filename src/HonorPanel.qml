@@ -1,4 +1,4 @@
-// MainWindow.qml: Primary user interface
+// HonorPanel.qml: Window section for tracking honor
 // Copyright 2018 Vincent Damewood
 //
 // This program is free software: you can redistribute it and/or modify
@@ -18,41 +18,69 @@ import QtQuick 2.11
 import QtQuick.Controls 2.4
 import QtQuick.Layouts 1.11
 
-ApplicationWindow
+Rectangle
 {
-	id: mainWindow
-	width: 640
-	height: 600
-	color: "white"
-	visible: true
+	id: honorPanel
+	color: "red"
 
-	ColumnLayout
+	Rectangle
 	{
-		spacing: 0
-		anchors.fill: parent
+		id: honorDisplay
+		property int value: 0
 
-		HonorPanel
+		height: parent.height/2
+		width: parent.width/3
+		visible: false
+		Text
+		{
+			text: honorDisplay.value.toString()
+			font.pixelSize: 52
+		}
+	}
+
+	RowLayout
+	{
+		id: honorInitLayout
+		spacing: 10
+		anchors.fill: parent;
+
+		HonorInitButton
 		{
 			Layout.fillWidth: true
 			Layout.fillHeight: true
+			value: 10
+			onClicked:
+			{
+				honorInitLayout.visible = false
+				honorDisplay.value = 10
+				honorDisplay.visible = true
+			}
 		}
 
-		Rectangle
+		HonorInitButton
 		{
-			id: bidPanel
 			Layout.fillWidth: true
 			Layout.fillHeight: true
-			color: "black"
-			visible: true
+			value: 11
+			onClicked:
+			{
+				honorInitLayout.visible = false
+				honorDisplay.value = 11
+				honorDisplay.visible = true
+			}
 		}
 
-		Rectangle
+		HonorInitButton
 		{
-			id: fatePanel
 			Layout.fillWidth: true
 			Layout.fillHeight: true
-			color: "violet"
-			visible: true
+			value: 12
+			onClicked:
+			{
+				honorInitLayout.visible = false
+				honorDisplay.value = 12
+				honorDisplay.visible = true
+			}
 		}
 	}
 }

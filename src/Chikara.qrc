@@ -21,5 +21,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 <qresource>
 	<file>MainWindow.qml</file>
 	<file>HonorInitButton.qml</file>
+	<file>HonorPanel.qml</file>
 </qresource>
 </RCC>
