@@ -15,7 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include <QGuiApplication>
-#include <QQMLApplicationEngine>
+#include <QQmlApplicationEngine>
 
 const char* QML_FILE = "qrc:///MainWindow.qml";
 
