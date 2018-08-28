@@ -41,6 +41,38 @@ Rectangle
 		}
 	}
 
+	Button {
+		anchors.right: honorDisplay.left
+		anchors.rightMargin: 20
+		anchors.verticalCenter: parent.verticalCenter
+			height: parent.height * 3/5
+			width: parent.width /4
+
+		background: Rectangle
+		{
+			radius: 20
+			color: "gray"
+		}
+
+		onClicked: honorDisplay.value -= 1
+	}
+
+	Button {
+		anchors.left: honorDisplay.right
+		anchors.leftMargin: 20
+		anchors.verticalCenter: parent.verticalCenter
+			height: parent.height * 3/5
+			width: parent.width /4
+
+		background: Rectangle
+		{
+			radius: 20
+			color: "gray"
+		}
+
+		onClicked: honorDisplay.value += 1
+	}
+
 	RowLayout
 	{
 		id: honorInitLayout
