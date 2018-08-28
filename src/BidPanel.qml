@@ -1,4 +1,4 @@
-// MainWindow.qml: Primary user interface
+// BidPanel.qml: Window section for tracking bids
 // Copyright 2018 Vincent Damewood
 //
 // This program is free software: you can redistribute it and/or modify
@@ -18,35 +18,10 @@ import QtQuick 2.0
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
 
-ApplicationWindow
+Rectangle
 {
-	id: mainWindow
-	width: 640
-	height: 600
-	color: "white"
-	visible: true
+	id: bidPanel
+	color: "black"
 
-	ColumnLayout
-	{
-		spacing: 0
-		anchors.fill: parent
 
-		HonorPanel
-		{
-			Layout.fillWidth: true
-			Layout.fillHeight: true
-		}
-
-		BitPanel
-		{
-			Layout.fillWidth: true
-			Layout.fillHeight: true
-		}
-
-		FatePanel
-		{
-			Layout.fillWidth: true
-			Layout.fillHeight: true
-		}
-	}
 }
