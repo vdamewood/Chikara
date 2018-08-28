@@ -46,13 +46,10 @@ ApplicationWindow
 			visible: true
 		}
 
-		Rectangle
+		FatePanel
 		{
-			id: fatePanel
 			Layout.fillWidth: true
 			Layout.fillHeight: true
-			color: "violet"
-			visible: true
 		}
 	}
 }
