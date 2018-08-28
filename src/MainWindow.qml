@@ -37,7 +37,7 @@ ApplicationWindow
 			Layout.fillHeight: true
 		}
 
-		BitPanel
+		BidPanel
 		{
 			Layout.fillWidth: true
 			Layout.fillHeight: true
