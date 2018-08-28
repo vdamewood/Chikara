@@ -1,4 +1,4 @@
-// fatePanel.qml: Window section for tracking fate
+// FatePanel.qml: Window section for tracking fate
 // Copyright 2018 Vincent Damewood
 //
 // This program is free software: you can redistribute it and/or modify
