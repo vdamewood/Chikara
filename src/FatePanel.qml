@@ -23,21 +23,12 @@ Rectangle
 	id: fatePanel
 	color: "violet"
 
-	Rectangle
+	ValueDisplay
 	{
 		id: fateDisplay
-		property int value: 0
-
 		height: parent.height/2
 		width: parent.width/8
-		radius: 20
 		anchors.centerIn: parent
-		Text
-		{
-			anchors.centerIn: parent
-			text: fateDisplay.value.toString()
-			font.pixelSize: 52
-		}
 	}
 
 	Button {

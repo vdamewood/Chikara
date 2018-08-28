@@ -23,22 +23,12 @@ Rectangle
 	id: honorPanel
 	color: "red"
 
-	Rectangle
+	ValueDisplay
 	{
 		id: honorDisplay
-		property int value: 0
-
 		height: parent.height/2
 		width: parent.width/8
-		radius: 20
-		visible: false
 		anchors.centerIn: parent
-		Text
-		{
-			anchors.centerIn: parent
-			text: honorDisplay.value.toString()
-			font.pixelSize: 52
-		}
 	}
 
 	Button {

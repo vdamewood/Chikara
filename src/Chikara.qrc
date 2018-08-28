@@ -24,5 +24,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 	<file>HonorPanel.qml</file>
 	<file>FatePanel.qml</file>
 	<file>BidPanel.qml</file>
+	<file>ValueDisplay.qml</file>
 </qresource>
 </RCC>
