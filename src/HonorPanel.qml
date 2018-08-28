@@ -28,8 +28,8 @@ Rectangle
 		id: honorDisplay
 		property int value: 0
 
-		height: parent.height*4/5
-		width: parent.width/4
+		height: parent.height/2
+		width: parent.width/8
 		radius: 20
 		visible: false
 		anchors.centerIn: parent
