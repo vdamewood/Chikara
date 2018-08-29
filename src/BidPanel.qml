@@ -23,5 +23,188 @@ Rectangle
 	id: bidPanel
 	color: "black"
 
+	// States:
+	// 0: Displaying Bid
+	// 1: Selecting Bid
+	// 2: Hiding Bid
+	property int state: 0
 
+	ValueDisplay
+	{
+		id: bidDisplay
+		nullable: true
+		height: parent.height/2
+		width: parent.width/8
+		anchors.centerIn: parent
+	}
+
+	Button
+	{
+		id: startBidButton
+		onClicked: bidPanel.state = 1
+		anchors.left: bidDisplay.right
+		anchors.leftMargin: parent.width / 20
+		anchors.verticalCenter: parent.verticalCenter
+		height: parent.height/2
+		width: parent.width/5
+	}
+
+	Button {
+		id: button1
+		anchors.right: button2.left
+		//anchors.rightMargin: 20
+		anchors.verticalCenter: parent.verticalCenter
+		height: parent.height * 3/5
+		width: parent.width /5
+
+		background: Rectangle
+		{
+			radius: 20
+			color: "gray"
+		}
+
+		onClicked: {
+			bidDisplay.value = 1
+			bidPanel.state = 2
+		}
+		visible: false
+	}
+
+	Button {
+		id: button2
+		//anchors.centerIn: parent
+		anchors.right: button3.left
+		//anchors.rightMargin: 20
+		anchors.verticalCenter: parent.verticalCenter
+		height: parent.height * 3/5
+		width: parent.width /5
+
+		background: Rectangle
+		{
+			radius: 20
+			color: "gray"
+		}
+
+		onClicked: {
+			bidDisplay.value = 2
+			bidPanel.state = 2
+		}
+		visible: false
+	}
+
+	Button {
+		id: button3
+		anchors.centerIn: parent
+		//anchors.right: fateDisplay.left
+		//anchors.rightMargin: 20
+		//anchors.verticalCenter: parent.verticalCenter
+		height: parent.height * 3/5
+		width: parent.width /5
+
+		background: Rectangle
+		{
+			radius: 20
+			color: "gray"
+		}
+
+		onClicked: {
+			bidDisplay.value = 3
+			bidPanel.state = 2
+		}
+		visible: false
+	}
+
+	Button {
+		id: button4
+		anchors.left: button3.right
+		//anchors.rightMargin: 20
+		anchors.verticalCenter: parent.verticalCenter
+		height: parent.height * 3/5
+		width: parent.width /5
+
+		background: Rectangle
+		{
+			radius: 20
+			color: "gray"
+		}
+
+		onClicked: {
+			bidDisplay.value = 4
+			bidPanel.state = 2
+		}
+		visible: false
+	}
+
+		Button {
+		id: button5
+		anchors.left: button4.right
+		//anchors.right: fateDisplay.left
+		//anchors.rightMargin: 20
+		anchors.verticalCenter: parent.verticalCenter
+		height: parent.height * 3/5
+		width: parent.width /5
+
+		background: Rectangle
+		{
+			radius: 20
+			color: "gray"
+		}
+
+		onClicked: {
+			bidDisplay.value = 5
+			bidPanel.state = 2
+		}
+		visible: false
+	}
+
+	Button {
+		id: revealButton
+		anchors.centerIn: parent
+		height: parent.height * 3/5
+		width: parent.width * 3/5
+
+		background: Rectangle
+		{
+			radius: 20
+			color: "gray"
+		}
+
+		onClicked: bidPanel.state = 0
+		visible: false
+	}
+	onStateChanged: {
+		switch (state)
+		{
+			case 0:
+				bidDisplay.visible = true;
+				startBidButton.visible = true;
+				button1.visible = false;
+				button2.visible = false;
+				button3.visible = false;
+				button4.visible = false;
+				button5.visible = false;
+				revealButton.visible = false;
+				break;
+			case 1:
+				bidDisplay.visible = false;
+				startBidButton.visible = false;
+				button1.visible = true;
+				button2.visible = true;
+				button3.visible = true;
+				button4.visible = true;
+				button5.visible = true;
+				revealButton.visible = false;
+				break;
+			case 2:
+				bidDisplay.visible = false;
+				startBidButton.visible = false;
+				button1.visible = false;
+				button2.visible = false;
+				button3.visible = false;
+				button4.visible = false;
+				button5.visible = false;
+				revealButton.visible = true;
+				break;
+		}
+	}
 }
