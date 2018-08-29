@@ -16,7 +16,6 @@
 
 import QtQuick 2.0
 import QtQuick.Controls 2.0
-import QtQuick.Layouts 1.0
 
 Rectangle
 {
@@ -29,15 +28,18 @@ Rectangle
 		height: parent.height/2
 		width: parent.width/8
 		anchors.centerIn: parent
+		visible: false
 	}
 
 	Button {
+		id: decrementButton
 		anchors.right: honorDisplay.left
 		anchors.rightMargin: 20
 		anchors.verticalCenter: parent.verticalCenter
-			height: parent.height * 3/5
-			width: parent.width /4
+		height: parent.height * 3/5
+		width: parent.width /4
 
+		visible: false
 		background: Rectangle
 		{
 			radius: 20
@@ -48,11 +50,13 @@ Rectangle
 	}
 
 	Button {
+		id: incrementButton
 		anchors.left: honorDisplay.right
 		anchors.leftMargin: 20
 		anchors.verticalCenter: parent.verticalCenter
-			height: parent.height * 3/5
-			width: parent.width /4
+		height: parent.height * 3/5
+		width: parent.width /4
+		visible: false
 
 		background: Rectangle
 		{
@@ -63,49 +67,63 @@ Rectangle
 		onClicked: honorDisplay.value += 1
 	}
 
-	RowLayout
+	HonorInitButton
 	{
-		id: honorInitLayout
-		spacing: 10
-		anchors.fill: parent;
+		id: lowInitButton
 
-		HonorInitButton
+		anchors.right: midInitButton.left
+		anchors.verticalCenter: parent.verticalCenter
+		height: parent.height * 4/5
+		width: parent.width * 1/3
+		value: 10
+		onClicked:
 		{
-			Layout.fillWidth: true
-			Layout.fillHeight: true
-			value: 10
-			onClicked:
-			{
-				honorInitLayout.visible = false
-				honorDisplay.value = 10
-				honorDisplay.visible = true
-			}
+			honorDisplay.value = 10
+			lowInitButton.visible = false
+			midInitButton.visible = false
+			highInitButton.visible = false
+			decrementButton.visible = true
+			honorDisplay.visible = true
+			incrementButton.visible = true
 		}
+	}
 
-		HonorInitButton
+	HonorInitButton
+	{
+		id: midInitButton
+		anchors.centerIn: parent
+		height: parent.height * 4/5
+		width: parent.width * 1/3
+		value: 11
+		onClicked:
 		{
-			Layout.fillWidth: true
-			Layout.fillHeight: true
-			value: 11
-			onClicked:
-			{
-				honorInitLayout.visible = false
-				honorDisplay.value = 11
-				honorDisplay.visible = true
-			}
+			honorDisplay.value = 11
+			lowInitButton.visible = false
+			midInitButton.visible = false
+			highInitButton.visible = false
+			decrementButton.visible = true
+			honorDisplay.visible = true
+			incrementButton.visible = true
 		}
+	}
 
-		HonorInitButton
+	HonorInitButton
+	{
+		id: highInitButton
+		anchors.left: midInitButton.right
+		anchors.verticalCenter: parent.verticalCenter
+		height: parent.height * 4/5
+		width: parent.width * 1/3
+		value: 12
+		onClicked:
 		{
-			Layout.fillWidth: true
-			Layout.fillHeight: true
-			value: 12
-			onClicked:
-			{
-				honorInitLayout.visible = false
-				honorDisplay.value = 12
-				honorDisplay.visible = true
-			}
+			honorDisplay.value = 12
+			lowInitButton.visible = false
+			midInitButton.visible = false
+			highInitButton.visible = false
+			decrementButton.visible = true
+			honorDisplay.visible = true
+			incrementButton.visible = true
 		}
 	}
 }
