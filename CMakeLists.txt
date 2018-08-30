@@ -44,17 +44,14 @@ set(QT_PLUGINS
 set(QML_PLUGINS
 	QtQuick.2/qtquick2plugin
 	QtQuick/Controls.2/qtquickcontrols2plugin
-	QtQuick/Layouts/qquicklayoutsplugin
 	QtQuick/Templates.2/qtquicktemplates2plugin
 	QtQuick/Window.2/windowplugin
 )
 set(QML_FILES
 	QtQuick.2/qmldir
-	QtQuick/Controls/Styles/qmldir
 	QtQuick/Controls.2/qmldir
 	QtQuick/Controls.2/ApplicationWindow.qml
 	QtQuick/Controls.2/Button.qml
-	QtQuick/Layouts/qmldir
 	QtQuick/Templates.2/qmldir
 	QtQuick/Window.2/qmldir
 )
