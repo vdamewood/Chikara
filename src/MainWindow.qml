@@ -16,37 +16,35 @@
 
 import QtQuick 2.0
 import QtQuick.Controls 2.0
-import QtQuick.Layouts 1.0
 
 ApplicationWindow
 {
-	id: mainWindow
 	width: 640
 	height: 600
-	color: "white"
 	visible: true
 
-	ColumnLayout
+	HonorPanel
 	{
-		spacing: 0
-		anchors.fill: parent
+		anchors.left: parent.left
+		anchors.right: parent.right
+		anchors.top: parent.top
+		anchors.bottom: bidPanel.top
+	}
 
-		HonorPanel
-		{
-			Layout.fillWidth: true
-			Layout.fillHeight: true
-		}
+	BidPanel
+	{
+		id: bidPanel
+		anchors.left: parent.left
+		anchors.right: parent.right
+		anchors.verticalCenter: parent.verticalCenter
+		height: parent.height/3
+	}
 
-		BidPanel
-		{
-			Layout.fillWidth: true
-			Layout.fillHeight: true
-		}
-
-		FatePanel
-		{
-			Layout.fillWidth: true
-			Layout.fillHeight: true
-		}
+	FatePanel
+	{
+		anchors.left: parent.left
+		anchors.right: parent.right
+		anchors.top: bidPanel.bottom
+		anchors.bottom: parent.bottom
 	}
 }
