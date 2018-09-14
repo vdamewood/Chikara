@@ -30,52 +30,36 @@ Rectangle
 		anchors.centerIn: parent
 	}
 
-	Button {
+	AdjustButton {
+		adjustment: -1
+		valueDisplay: fateDisplay
 		anchors.right: fateDisplay.left
 		anchors.rightMargin: 20
 		anchors.verticalCenter: parent.verticalCenter
 			height: parent.height * 3/5
 			width: parent.width /5
-
-		background: Rectangle
-		{
-			radius: 20
-			color: "gray"
-		}
-
-		onClicked: fateDisplay.value -= 1
 	}
 
-	Button {
+	AdjustButton {
 		id: addOne
+		adjustment: 1
+		valueDisplay: fateDisplay
+
 		anchors.left: fateDisplay.right
 		anchors.leftMargin: 20
 		anchors.verticalCenter: parent.verticalCenter
 			height: parent.height * 3/5
 			width: parent.width /5
-
-		background: Rectangle
-		{
-			radius: 20
-			color: "gray"
-		}
-
-		onClicked: fateDisplay.value += 1
 	}
 
-	Button {
+	AdjustButton {
+		adjustment: 7
+		valueDisplay: fateDisplay
+
 		anchors.left: addOne.right
 		anchors.leftMargin: 0
 		anchors.verticalCenter: parent.verticalCenter
 			height: parent.height * 3/5
 			width: parent.width /5
-
-		background: Rectangle
-		{
-			radius: 20
-			color: "gray"
-		}
-
-		onClicked: fateDisplay.value += 7
 	}
 }

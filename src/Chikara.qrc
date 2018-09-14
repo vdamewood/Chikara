@@ -20,6 +20,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 <RCC version="1.0">
 <qresource>
 	<file>MainWindow.qml</file>
+	<file>AdjustButton.qml</file>
 	<file>HonorInitButton.qml</file>
 	<file>HonorPanel.qml</file>
 	<file>FatePanel.qml</file>

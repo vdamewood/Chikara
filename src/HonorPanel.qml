@@ -31,8 +31,11 @@ Rectangle
 		visible: false
 	}
 
-	Button {
+	AdjustButton {
 		id: decrementButton
+		adjustment: -1
+		valueDisplay: honorDisplay
+
 		anchors.right: honorDisplay.left
 		anchors.rightMargin: 20
 		anchors.verticalCenter: parent.verticalCenter
@@ -40,31 +43,19 @@ Rectangle
 		width: parent.width /4
 
 		visible: false
-		background: Rectangle
-		{
-			radius: 20
-			color: "gray"
-		}
-
-		onClicked: honorDisplay.value -= 1
 	}
 
-	Button {
+	AdjustButton {
 		id: incrementButton
+		adjustment: 1
+		valueDisplay: honorDisplay
+
 		anchors.left: honorDisplay.right
 		anchors.leftMargin: 20
 		anchors.verticalCenter: parent.verticalCenter
 		height: parent.height * 3/5
 		width: parent.width /4
 		visible: false
-
-		background: Rectangle
-		{
-			radius: 20
-			color: "gray"
-		}
-
-		onClicked: honorDisplay.value += 1
 	}
 
 	HonorInitButton
