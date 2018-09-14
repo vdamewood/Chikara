@@ -124,39 +124,16 @@ Rectangle
 		onClicked: bidPanel.state = 0
 		visible: false
 	}
-	onStateChanged: {
-		switch (state)
-		{
-			case 0:
-				bidDisplay.visible = true;
-				startBidButton.visible = true;
-				button1.visible = false;
-				button2.visible = false;
-				button3.visible = false;
-				button4.visible = false;
-				button5.visible = false;
-				revealButton.visible = false;
-				break;
-			case 1:
-				bidDisplay.visible = false;
-				startBidButton.visible = false;
-				button1.visible = true;
-				button2.visible = true;
-				button3.visible = true;
-				button4.visible = true;
-				button5.visible = true;
-				revealButton.visible = false;
-				break;
-			case 2:
-				bidDisplay.visible = false;
-				startBidButton.visible = false;
-				button1.visible = false;
-				button2.visible = false;
-				button3.visible = false;
-				button4.visible = false;
-				button5.visible = false;
-				revealButton.visible = true;
-				break;
-		}
+
+	onStateChanged:
+	{
+		bidDisplay.visible = state == 0;
+		startBidButton.visible = state == 0;
+		button1.visible = state == 1;
+		button2.visible = state == 1;
+		button3.visible = state == 1;
+		button4.visible = state == 1;
+		button5.visible = state == 1;
+		revealButton.visible = state == 2;
 	}
 }
