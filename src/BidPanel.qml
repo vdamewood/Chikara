@@ -48,111 +48,64 @@ Rectangle
 		width: parent.width/5
 	}
 
-	Button {
+	BidButton {
 		id: button1
+		bid: 1
+		bidDisplay: bidDisplay
+
 		anchors.right: button2.left
 		//anchors.rightMargin: 20
 		anchors.verticalCenter: parent.verticalCenter
-		height: parent.height * 3/5
-		width: parent.width /5
-
-		background: Rectangle
-		{
-			radius: 20
-			color: "gray"
-		}
-
-		onClicked: {
-			bidDisplay.value = 1
-			bidPanel.state = 2
-		}
 		visible: false
 	}
 
-	Button {
+	BidButton {
 		id: button2
+		bid: 2
+		bidDisplay: bidDisplay
+
 		//anchors.centerIn: parent
 		anchors.right: button3.left
 		//anchors.rightMargin: 20
 		anchors.verticalCenter: parent.verticalCenter
-		height: parent.height * 3/5
-		width: parent.width /5
 
-		background: Rectangle
-		{
-			radius: 20
-			color: "gray"
-		}
-
-		onClicked: {
-			bidDisplay.value = 2
-			bidPanel.state = 2
-		}
 		visible: false
 	}
 
-	Button {
+	BidButton {
 		id: button3
+		bid: 3
+		bidDisplay: bidDisplay
 		anchors.centerIn: parent
 		//anchors.right: fateDisplay.left
 		//anchors.rightMargin: 20
 		//anchors.verticalCenter: parent.verticalCenter
-		height: parent.height * 3/5
-		width: parent.width /5
 
-		background: Rectangle
-		{
-			radius: 20
-			color: "gray"
-		}
-
-		onClicked: {
-			bidDisplay.value = 3
-			bidPanel.state = 2
-		}
 		visible: false
 	}
 
-	Button {
+	BidButton {
 		id: button4
+		bid: 4
+		bidDisplay: bidDisplay
+
 		anchors.left: button3.right
 		//anchors.rightMargin: 20
 		anchors.verticalCenter: parent.verticalCenter
-		height: parent.height * 3/5
-		width: parent.width /5
 
-		background: Rectangle
-		{
-			radius: 20
-			color: "gray"
-		}
-
-		onClicked: {
-			bidDisplay.value = 4
-			bidPanel.state = 2
-		}
 		visible: false
 	}
 
-		Button {
+	BidButton {
 		id: button5
+		bid: 5
+		bidDisplay: bidDisplay
+
 		anchors.left: button4.right
 		//anchors.right: fateDisplay.left
 		//anchors.rightMargin: 20
 		anchors.verticalCenter: parent.verticalCenter
-		height: parent.height * 3/5
-		width: parent.width /5
 
-		background: Rectangle
-		{
-			radius: 20
-			color: "gray"
-		}
-
-		onClicked: {
-			bidDisplay.value = 5
-			bidPanel.state = 2
-		}
 		visible: false
 	}
 
