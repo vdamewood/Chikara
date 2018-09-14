@@ -46,6 +46,21 @@ Rectangle
 		anchors.verticalCenter: parent.verticalCenter
 		height: parent.height/2
 		width: parent.width/5
+
+		contentItem: Text
+		{
+			text: "Bid"
+			font.pixelSize: 55
+			color: "black"
+			horizontalAlignment: Text.AlignHCenter
+			verticalAlignment: Text.AlignVCenter
+		}
+
+		background: Rectangle
+		{
+			radius: 20
+			color: "gray"
+		}
 	}
 
 	BidButton {
@@ -114,6 +129,15 @@ Rectangle
 		anchors.centerIn: parent
 		height: parent.height * 3/5
 		width: parent.width * 3/5
+
+		contentItem: Text
+		{
+			text: "Reveal"
+			font.pixelSize: 55
+			color: "black"
+			horizontalAlignment: Text.AlignHCenter
+			verticalAlignment: Text.AlignVCenter
+		}
 
 		background: Rectangle
 		{
